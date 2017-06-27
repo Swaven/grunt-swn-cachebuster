@@ -55,4 +55,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 2017-06-27: [v0.1.0](https://github.com/Swaven/grunt-swn-cachebuster/releases/tag/v0.0.0): first release
+* 2017-06-27: [v0.1.1](https://github.com/Swaven/grunt-swn-cachebuster/releases/tag/v0.1.1): more robust regex
+* 2017-06-27: [v0.1.0](https://github.com/Swaven/grunt-swn-cachebuster/releases/tag/v0.1.0): first release
