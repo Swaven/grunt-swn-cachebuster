@@ -1,6 +1,6 @@
 # grunt-swn-cachebuster
 
-> Adds query string timestamp param
+> Appends timestamp param to import urls
 
 ## Getting Started
 This plugin requires Grunt `>=0.4.5`
@@ -17,17 +17,17 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-swn-cachebuster');
 ```
 
-## The "swn_cachebuster" task
+## The "cachebuster" task
 
 ### Overview
-In your project's Gruntfile, add a section named `swn_cachebuster` to the data object passed into `grunt.initConfig()`.
+
+This task looks into source files, and edits all html and js file urls to append a timestamp query string parameter. It ignores urls that start with  */bower_components*.
+
+In your project's Gruntfile, add a section named `cachebuster` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  swn_cachebuster: {
-    options: {
-      // Task-specific options go here.
-    },
+  cachebuster: {
     your_target: {
       // Target-specific file lists and/or options go here.
     },
@@ -35,48 +35,16 @@ grunt.initConfig({
 });
 ```
 
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
-
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
 ```js
 grunt.initConfig({
-  swn_cachebuster: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  swn_cachebuster: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+  cachebuster: {
+    all: {
+      expand: true,
+      cwd: 'assets/',
+      src: ['*.html', 'elements/**/*.html', '!build/', 'elements/swn-app/swn-app.js'],
+      dest: 'assets/build/'
     },
   },
 });
@@ -86,4 +54,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+* 2017-06-27: [v0.1.0](https://github.com/Swaven/grunt-swn-cachebuster/releases/tag/v0.0.0): first release

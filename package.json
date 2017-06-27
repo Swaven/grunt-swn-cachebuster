@@ -1,6 +1,6 @@
 {
   "name": "grunt-swn-cachebuster",
-  "description": "Adds query string timestamp param",
+  "description": "Appends timestamp param to import urls",
   "version": "0.1.0",
   "homepage": "https://github.com/Swaven/grunt-swn-cachebuster",
   "author": {
@@ -34,5 +34,8 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "dependencies": {
+    "mkdirp": "^0.5.1"
+  }
 }
