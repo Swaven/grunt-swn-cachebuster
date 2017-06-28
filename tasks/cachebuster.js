@@ -13,7 +13,7 @@
        mkdirp = require('mkdirp')
 
  module.exports = function(grunt){
-   const rx = /(\/?bower_components)?(\/.*\.(html|js))('|")/gi, // find all dependencies except bower components
+   const rx = /(\/?bower_components)?(\/.*\.(html|js))('|"|`)/gi, // find all dependencies except bower components
          ts = Date.now() // timestamp we'll add to all dependencies urls
 
    grunt.registerMultiTask('cachebuster', 'Appends timestamp param to import urls', function(){
