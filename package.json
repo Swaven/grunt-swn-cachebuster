@@ -1,7 +1,7 @@
 {
   "name": "grunt-swn-cachebuster",
   "description": "Appends timestamp param to import urls",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/Swaven/grunt-swn-cachebuster",
   "author": {
     "name": "Swaven",
