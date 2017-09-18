@@ -44,7 +44,13 @@ module.exports = function(grunt){
           return reject()
         }
         // add timestamp query string to all matches
-        return resolve(replace(data))
+        try{
+          let result = replace(data)
+          return resolve(result)
+        }
+        catch(err){
+          grunt.file.warn(`Error replacing ${filepath}: ${err}`)
+        }
       })
     })
     .then(data => {
@@ -59,5 +65,6 @@ module.exports = function(grunt){
         })
       })
     })
+
   }
 }

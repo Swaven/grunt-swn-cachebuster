@@ -15,4 +15,9 @@ describe('Replace', () => {
         rx = /coin\.js\?v=\d+">/i
     assert.isTrue(rx.test(output))
   })
+
+  it('fail on non-string', () => {
+    assert.throws(replace.bind(null, null), 'Content is not a string')
+  })
+
 })
