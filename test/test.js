@@ -1,7 +1,7 @@
 
 const assert = require('chai').assert
 
-var replace = require('../tasks/replace.js')
+var replace = require('../lib/replace.js')
 
 describe('Replace', () => {
   it('ignore bower_components', () => {

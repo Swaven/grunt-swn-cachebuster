@@ -11,7 +11,11 @@
 const fs = require('fs'),
       path = require('path'),
       mkdirp = require('mkdirp'),
-      replace = require('./replace.js')
+      replace = require('../lib/replace.js'),
+      util = require('util'),
+      lstat = util.promisify(fs.lstat),
+      readFile = util.promisify(fs.readFile),
+      writeFile = util.promisify(fs.writeFile)
 
 module.exports = function(grunt){
 
@@ -35,36 +39,28 @@ module.exports = function(grunt){
   })
 
   // reads file, updates all dependencies urls and write at destination
-  function updateLinks(fileInfo){
-    return new Promise((resolve, reject) => {
-      var filepath = fileInfo.src[0]
-      fs.readFile(filepath, {encoding: 'utf8'}, (err, data) => {
-        if (err){
-          grunt.fail.warn(`Error reading ${filepath}: ${err}`)
-          return reject()
-        }
-        // add timestamp query string to all matches
-        try{
-          let result = replace(data)
-          return resolve(result)
-        }
-        catch(err){
-          grunt.file.warn(`Error replacing ${filepath}: ${err}`)
-        }
-      })
-    })
-    .then(data => {
-      return new Promise((resolve, reject) => {
-        mkdirp.sync(path.dirname(fileInfo.dest))
-        fs.writeFile(fileInfo.dest, data, 'utf8', (err, data) => {
-          if (err){
-            grunt.fail.warn(`Error writing ${fileInfo.dest}: ${err}`)
-            return reject()
-          }
-          return resolve()
-        })
-      })
-    })
+  async function updateLinks(fileInfo){
+    var filepath = fileInfo.src[0]
 
+    try{
+      let stats = await lstat(filepath)
+
+      // not a file: ignore
+      if (!stats.isFile()){
+        // console.log(`${filepath} is not a file, ignore`)
+        return Promise.resolve()
+      }
+
+      let data = await readFile(filepath, {encoding: 'utf8'}),
+          result = replace(data)
+
+      // write update content to output file
+      mkdirp.sync(path.dirname(fileInfo.dest))
+      await writeFile(fileInfo.dest, result, 'utf8')
+      return Promise.resolve()
+    }
+    catch(err){
+      grunt.fail.warn(`${filepath}: ${err.message}`)
+    }
   }
 }
