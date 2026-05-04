@@ -3,7 +3,8 @@
 > Appends timestamp param to import urls
 
 ## Getting Started
-This plugin requires Grunt `>=0.4.5`
+
+This plugin requires **Node.js `>=22`** and **Grunt `^1.6.1`** (the same range this package is developed and tested against).
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 

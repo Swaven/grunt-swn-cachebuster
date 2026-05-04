@@ -10,7 +10,6 @@
 
 const fs = require('fs'),
       path = require('path'),
-      mkdirp = require('mkdirp'),
       replace = require('../lib/replace.js'),
       util = require('util'),
       lstat = util.promisify(fs.lstat),
@@ -55,7 +54,7 @@ module.exports = function(grunt){
           result = replace(data)
 
       // write update content to output file
-      mkdirp.sync(path.dirname(fileInfo.dest))
+      fs.mkdirSync(path.dirname(fileInfo.dest), { recursive: true })
       await writeFile(fileInfo.dest, result, 'utf8')
       return Promise.resolve()
     }
